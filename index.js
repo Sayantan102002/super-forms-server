@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const userRoutes = require('./routes/user.js')
-const formRoutes = require('./routes/user.js');
+const formRoutes = require('./routes/form.js');
 
 const port = 5000
 var cors = require('cors');

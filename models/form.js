@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const formSchema = Schema({
     name: {
-        type: string,
+        type: String,
         required: true,
     },
     description: {
-        type: string,
+        type: String,
         required: true,
     },
     image: {
