@@ -4,6 +4,11 @@ const Question = require("../models/question.model")
 const create = async (req, res) => {
     const { questionObj } = req.body;
     try {
+        // if (Question.exists({questionText:questionObj?.questionText})) {
+        //     return res.status(400).json({ message: "Question already exists" })
+        // }
+        // else {
+
         let question = await Question.create(questionObj);
         const questionId = question._id;
         var updateObj = {
@@ -30,6 +35,7 @@ const create = async (req, res) => {
                 // }
             })
         res.status(200).json(form);
+        // }
     }
     catch (error) {
         res.status(500).json(error);

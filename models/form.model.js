@@ -10,8 +10,9 @@ const formSchema = Schema({
         required: true,
     },
     image: {
-        type: Schema.Types.ObjectId,
-        ref: 'File',
+        // type: Schema.Types.ObjectId,
+        // ref: 'File',
+        type: String
     },
     user: {
         type: Schema.Types.ObjectId,
