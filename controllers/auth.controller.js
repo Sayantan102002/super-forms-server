@@ -54,9 +54,32 @@ const login = async (req, res) => {
 
 }
 
+const getUpdatedUser = async (req, res) => {
+    try {
+        let user = await users.findOne({ email: req.body.email })
+        console.log(user)
+        if (user) {
+            let updatedUser = await users.findByIdAndUpdate(user?._id, req.body, { new: true })
+            console.log(updatedUser)
+            res.status(200).json(updatedUser);
+        }
+        else {
+            let newUser = await users.create(req.body)
+            console.log(newUser)
+            res.status(200).json(newUser);
 
+        }
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err);
+    }
+
+}
 module.exports = {
-    signup, login
+    signup,
+    login,
+    getUpdatedUser
 }
 
 

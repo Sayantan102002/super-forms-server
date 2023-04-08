@@ -11,11 +11,16 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
+        // required: true,
+    },
+    firebaseUid: {
+        type: String,
         required: true,
     },
-    // firebaseUid: {
-    //     type: String,
-    // }
+    photoURL: {
+        type: String,
+        default: "",
+    }
 
 })
 

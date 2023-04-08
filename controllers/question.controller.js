@@ -42,6 +42,60 @@ const create = async (req, res) => {
         console.log(error)
     }
 }
+
+
+const update = async (req, res) => {
+    const { questionObj } = req.body;
+    try {
+        let question = await Question.findByIdAndUpdate(questionObj?._id, questionObj, { new: true })
+        res.status(200).json(question);
+    }
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err)
+    }
+}
+
+
+
+const deleteQuestion = async (req, res) => {
+    const { questionId } = req.body;
+    try {
+        let question = await Question.findByIdAndDelete(questionId);
+        var updateObj = {
+            $pull: { questions: questionId },
+        };
+
+        const form = await Form.findByIdAndUpdate(question?.form, updateObj, { new: true })
+            .populate({
+                path: 'user',
+                select: '_id name email'
+            })
+            .populate({
+                path: 'questions',
+                //  populate: {
+                //     path: 'options',
+                //     model: 'Option'
+                // }
+            })
+            .populate({
+                path: 'questions',
+                // populate: {
+                //     path: 'optionCols',
+                //     model: 'Option'
+                // }
+            })
+        res.status(200).json(form);
+
+    }
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err)
+    }
+
+}
 module.exports = {
-    create
+    create,
+    update,
+    deleteQuestion
 }

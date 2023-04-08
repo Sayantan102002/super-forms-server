@@ -50,7 +50,7 @@ const QuestionSchema = new Schema(
         },
         type: {
             type: String,
-            enum: ["Multiple Choice", 'Dropdown', "Boolean", "Short Answer", "Long Answer", 'File Upload', "Date", "Time", 'Linear Scale', 'Multiple Choice Grid', 'Checkbox Grid'],
+            enum: ["Multiple Choice", 'Dropdown', "Boolean", "Short Answer", "Long Answer", 'File Upload', "Date", "Time", 'Linear Scale', 'Multiple Choice Grid', 'Checkbox Grid', "Checkbox"],
         },
     },
     {

@@ -23,7 +23,11 @@ const formSchema = Schema({
             type: Schema.Types.ObjectId,
             ref: 'Question',
         }
-    ]
+    ],
+    anonymous: {
+        type: Boolean,
+        default: false,
+    }
 },
     {
         timestamps: true,
