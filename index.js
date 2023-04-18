@@ -3,6 +3,10 @@ const app = express();
 const userRoutes = require('./routes/user.routes.js')
 const formRoutes = require('./routes/form.routes.js');
 const questionRoutes = require('./routes/question.routes.js')
+const sharedRoutes = require('./routes/shared.routes.js')
+const notificationRoutes = require('./routes/notification.routes.js')
+
+
 const port = process.env.PORT || 5000
 var cors = require('cors');
 const mongoose = require('mongoose');
@@ -20,6 +24,8 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes)
 app.use('/form', formRoutes)
 app.use('/form/question', questionRoutes)
+app.use('/form/share', sharedRoutes)
+app.use('/notification', notificationRoutes)
 //========================================================================
 
 

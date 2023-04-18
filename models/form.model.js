@@ -27,7 +27,13 @@ const formSchema = Schema({
     anonymous: {
         type: Boolean,
         default: false,
-    }
+    },
+    shared: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Shared',
+        }
+    ]
 },
     {
         timestamps: true,
