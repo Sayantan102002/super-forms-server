@@ -13,10 +13,10 @@ const create = async (req, res) => {
             .populate([{
                 path: "shared",
                 model: "Shared",
-                // populate: {
-                //     path: "user",
-                //     model: "User"
-                // }
+                populate: {
+                    path: "user",
+                    model: "User"
+                }
             }])
         // .then(() => {
         //     console.log(form);
@@ -75,10 +75,10 @@ const getForms = async (req, res) => {
             .populate([{
                 path: "shared",
                 model: "Shared",
-                // populate: {
-                //     path: "user",
-                //     model: "User"
-                // }
+                populate: {
+                    path: "user",
+                    model: "User"
+                }
             }])
         // .populate({
         //     path: 'questions',

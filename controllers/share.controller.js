@@ -21,10 +21,10 @@ const addToshare = async (req, res) => {
             .populate([{
                 path: "shared",
                 model: "Shared",
-                // populate: {
-                //     path: "user",
-                //     model: "User"
-                // }
+                populate: {
+                    path: "user",
+                    model: "User"
+                }
             }])
         res.status(200).json(form);
     }
