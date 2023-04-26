@@ -3,6 +3,7 @@ const app = express();
 const userRoutes = require('./routes/user.routes.js')
 const formRoutes = require('./routes/form.routes.js');
 const questionRoutes = require('./routes/question.routes.js')
+const optionRoutes = require('./routes/option.routes.js')
 const sharedRoutes = require('./routes/shared.routes.js')
 const notificationRoutes = require('./routes/notification.routes.js')
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes)
 app.use('/form', formRoutes)
 app.use('/form/question', questionRoutes)
+app.use('/form/question/option', optionRoutes)
 app.use('/form/share', sharedRoutes)
 app.use('/notification', notificationRoutes)
 //========================================================================

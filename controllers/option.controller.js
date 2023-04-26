@@ -1,17 +1,17 @@
-const Form = require("../models/form.model");
-const Option = require("../models/option.question.model")
+const Option = require("../models/option.question.model");
+const Question = require("../models/question.model");
 
 const create = async (req, res) => {
     const { optionObj } = req.body;
     try {
-        
+
         let option = await Option.create(optionObj);
         const optionId = option._id;
         var updateObj = {
             $addToSet: { options: optionId },
         };
 
-        const form = await Form.findByIdAndUpdate(optionObj?.form, updateObj, { new: true })
+        const question = await Question.findByIdAndUpdate(option?.question, updateObj, { new: true })
             .populate({
                 path: 'user',
                 select: '_id name email'
@@ -24,13 +24,13 @@ const create = async (req, res) => {
                 // }
             })
             .populate({
-                path: 'options',
+                path: 'optionCols',
                 // populate: {
                 //     path: 'optionCols',
                 //     model: 'Option'
                 // }
             })
-        res.status(200).json(form);
+        res.status(200).json(question);
         // }
     }
     catch (error) {
@@ -57,12 +57,12 @@ const update = async (req, res) => {
 const deleteOption = async (req, res) => {
     const { optionId } = req.body;
     try {
-        let option = await option.findByIdAndDelete(optionId);
+        let option = await Option.findByIdAndDelete(optionId);
         var updateObj = {
             $pull: { options: optionId },
         };
 
-        const form = await Form.findByIdAndUpdate(option?.form, updateObj, { new: true })
+        const question = await Question.findByIdAndUpdate(option?.question, updateObj, { new: true })
             .populate({
                 path: 'user',
                 select: '_id name email'
@@ -75,13 +75,13 @@ const deleteOption = async (req, res) => {
                 // }
             })
             .populate({
-                path: 'options',
+                path: 'optionCols',
                 // populate: {
                 //     path: 'optionCols',
                 //     model: 'Option'
                 // }
             })
-        res.status(200).json(form);
+        res.status(200).json(question);
 
     }
     catch (err) {

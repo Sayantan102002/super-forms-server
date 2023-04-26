@@ -10,6 +10,22 @@ const create = async (req, res) => {
                 path: 'user',
                 select: '_id name email'
             })
+            .populate({
+                path: 'questions',
+                populate: {
+                    path: 'options',
+
+                }
+
+            })
+            .populate({
+                path: 'questions',
+                populate: {
+                    path: 'optionCols',
+
+                }
+
+            })
             .populate([{
                 path: "shared",
                 model: "Shared",
@@ -67,10 +83,19 @@ const getForms = async (req, res) => {
                 select: '_id name email'
             }).populate({
                 path: 'questions',
-                // populate: {
-                //     path: 'options',
-                //     model: 'Option'
-                // }
+                populate: {
+                    path: 'options',
+
+                }
+
+            })
+            .populate({
+                path: 'questions',
+                populate: {
+                    path: 'optionCols',
+
+                }
+
             })
             .populate([{
                 path: "shared",

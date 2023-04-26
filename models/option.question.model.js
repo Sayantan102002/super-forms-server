@@ -13,7 +13,7 @@ const OptionSchema = new Schema(
             ref: "User",
         },
 
-        open: { type: Boolean, default: false },
+        open: { type: Boolean, default: true },
         optionText: String,
         optionImage: { type: String, default: "" },
     },
