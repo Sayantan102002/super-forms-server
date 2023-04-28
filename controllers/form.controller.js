@@ -119,13 +119,49 @@ const getForms = async (req, res) => {
         console.log(err);
     }
 }
-// const update=async(req,res)=>{
-//     try{
+const getFormById = async (req, res) => {
+    const { formId } = req.body;
+    try {
+        const form = await Form.findById(formId)
+            .populate({
+                path: 'user',
+                select: '_id name email'
+            }).populate({
+                path: 'questions',
+                populate: {
+                    path: 'options',
 
-//     }
-// }
+                }
+
+            })
+            .populate({
+                path: 'questions',
+                populate: {
+                    path: 'optionCols',
+
+                }
+
+            })
+            .populate([{
+                path: "shared",
+                model: "Shared",
+                populate: {
+                    path: "user",
+                    model: "User"
+                }
+            }])
+
+        res.status(200).json(form);
+    }
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
+    }
+}
+
 module.exports = {
     create,
     deleteForm,
-    getForms
+    getForms,
+    getFormById
 }

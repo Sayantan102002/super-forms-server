@@ -16,25 +16,33 @@ const create = async (req, res) => {
         };
 
         const form = await Form.findByIdAndUpdate(questionObj?.form, updateObj, { new: true })
+        // .populate({
+        //     path: 'user',
+        //     select: '_id name email'
+        // })
+        // .populate({
+        //     path: 'questions',
+        //     //  populate: {
+        //     //     path: 'options',
+        //     //     model: 'Option'
+        //     // }
+        // })
+        // .populate({
+        //     path: 'questions',
+        //     // populate: {
+        //     //     path: 'optionCols',
+        //     //     model: 'Option'
+        //     // }
+        // })
+        question = await Question.findById(questionId)
             .populate({
-                path: 'user',
-                select: '_id name email'
+                path: 'options',
             })
             .populate({
-                path: 'questions',
-                //  populate: {
-                //     path: 'options',
-                //     model: 'Option'
-                // }
+                path: 'optionCols',
             })
-            .populate({
-                path: 'questions',
-                // populate: {
-                //     path: 'optionCols',
-                //     model: 'Option'
-                // }
-            })
-        res.status(200).json(form);
+        console.log(question)
+        res.status(200).json(question);
         // }
     }
     catch (error) {
