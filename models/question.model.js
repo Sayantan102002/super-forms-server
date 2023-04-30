@@ -25,7 +25,7 @@ const QuestionSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "User",
         },
-        open: { type: Boolean, default: false },
+        open: { type: Boolean, default: true },
         questionText: String,
         questionImage: { type: String, default: "" },
         options: [
@@ -52,6 +52,10 @@ const QuestionSchema = new Schema(
             type: String,
             enum: ["Multiple Choice", 'Dropdown', "Boolean", "Short Answer", "Long Answer", 'File Upload', "Date", "Time", 'Linear Scale', 'Multiple Choice Grid', 'Checkbox Grid', "Checkbox"],
         },
+        required: {
+            type: Boolean,
+            default: false
+        }
     },
     {
         timestamps: true,

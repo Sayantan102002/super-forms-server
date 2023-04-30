@@ -2,13 +2,13 @@ const Option = require("../models/option.question.model");
 const Question = require("../models/question.model");
 
 const create = async (req, res) => {
-    const { optionObj } = req.body;
+    const { optionObj, index } = req.body;
     try {
 
         let option = await Option.create(optionObj);
         const optionId = option._id;
         var updateObj = {
-            $addToSet: { options: optionId },
+            $push: { options: { $each: [optionId], $position: index + 1 } },
         };
 
         const question = await Question.findByIdAndUpdate(option?.question, updateObj, { new: true })
@@ -31,6 +31,7 @@ const create = async (req, res) => {
                 // }
             })
         res.status(200).json(question);
+        // res.status(200).json(option);
         // }
     }
     catch (error) {
