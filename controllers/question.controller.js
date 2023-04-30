@@ -2,7 +2,7 @@ const Form = require("../models/form.model");
 const Question = require("../models/question.model")
 
 const create = async (req, res) => {
-    const { questionObj } = req.body;
+    const { questionObj, index } = req.body;
     try {
         // if (Question.exists({questionText:questionObj?.questionText})) {
         //     return res.status(400).json({ message: "Question already exists" })
@@ -12,7 +12,9 @@ const create = async (req, res) => {
         let question = await Question.create(questionObj);
         const questionId = question._id;
         var updateObj = {
-            $addToSet: { questions: questionId },
+            $push: { questions: { $each: [questionId], $position: index + 1 } },
+            // $addToSet: { questions: questionId },
+
         };
 
         const form = await Form.findByIdAndUpdate(questionObj?.form, updateObj, { new: true })
@@ -56,6 +58,7 @@ const update = async (req, res) => {
     const { questionObj } = req.body;
     try {
         let question = await Question.findByIdAndUpdate(questionObj?._id, questionObj, { new: true })
+        console.log(question);
         res.status(200).json(question);
     }
     catch (err) {
