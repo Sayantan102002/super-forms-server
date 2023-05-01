@@ -1,10 +1,23 @@
 const Form = require("../models/form.model");
+const Question = require("../models/question.model");
 const Shared = require("../models/share.model")
 const create = async (req, res) => {
     try {
         let share = await Shared.create(req.body.shared);
         let form = await Form.create({ ...req.body, shared: [share?._id] })
-        form = await Form.findById(form?._id)
+        console.log(form?._id)
+        let question = await Question.create({
+            questionObj: {
+                form: form?._id,
+                user: req.body.user,
+                questionText: "",
+                type: "Multiple Choice"
+            }
+        })
+        const updateObj = {
+            $addToSet: { questions: question?._id }
+        }
+        form = await Form.findByIdAndUpdate(form?._id, updateObj, { new: true })
             // .populate('image')
             .populate({
                 path: 'user',
@@ -53,6 +66,7 @@ const deleteForm = async (req, res) => {
             res.status(500).json({ message: "Form doesn't exist" })
         else {
             const form = await Form.findByIdAndDelete(req.body.formId);
+            let questions = await Question.deleteMany({ form: req.body.formId })
             // const forms = await Form.find({ user: form?.user })
             //     .populate({
             //         path: 'user',
